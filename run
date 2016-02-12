@@ -1,0 +1,11 @@
+#!/bin/sh
+
+echo "----> Fetching rclone source and dependencies..."
+go get -v -d github.com/ncw/rclone
+cd /go/src/github.com/ncw/rclone
+
+echo "----> Building rclone static binary..."
+CGO_ENABLED=0 go build -v -a -installsuffix cgo
+mv rclone /output/
+
+echo "----> Sucessfully built and copied the binary to PWD on your Docker host."
