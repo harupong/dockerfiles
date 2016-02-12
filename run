@@ -2,10 +2,12 @@
 
 echo "----> Fetching rclone source and dependencies..."
 go get -v -d github.com/ncw/rclone
-cd /go/src/github.com/ncw/rclone
+[ $? -ne 0 ] && echo "Fetch failed. Exiting..." && exit 1
 
 echo "----> Building rclone static binary..."
+cd /go/src/github.com/ncw/rclone
 CGO_ENABLED=0 go build -v -a -installsuffix cgo
-mv rclone /output/
+[ $? -ne 0 ] && echo "Build failed. Exiting..." && exit 1
 
+mv rclone /output/
 echo "----> Sucessfully built and copied the binary to PWD on your Docker host."
