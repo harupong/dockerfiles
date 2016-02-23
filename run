@@ -1,0 +1,13 @@
+#!/bin/sh
+
+echo "----> Fetching revealgo source and dependencies..."
+go get -v -d github.com/yusukebe/revealgo
+[ $? -ne 0 ] && echo "Fetch failed. Exiting..." && exit 1
+
+echo "----> Building revealgo windows 32bit binary..."
+cd /go/src/github.com/yusukebe/revealgo/cmd/revealgo
+GOOS=windows GOARCH=386 go build
+[ $? -ne 0 ] && echo "Build failed. Exiting..." && exit 1
+
+mv revealgo.exe /output/
+echo "----> Sucessfully built and copied the binary to PWD on your Docker host."

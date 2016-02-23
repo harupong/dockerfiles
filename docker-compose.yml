@@ -1,0 +1,4 @@
+hubot:
+  image: harupong/revealgo-windows
+  volumes: 
+   - ./:/output
